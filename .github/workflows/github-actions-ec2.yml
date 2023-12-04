@@ -19,7 +19,8 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-        
+      - name: Print message
+        run: echo "This workflow run was triggered by ${{ env.DB_DATABASE }}"
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
         env:
