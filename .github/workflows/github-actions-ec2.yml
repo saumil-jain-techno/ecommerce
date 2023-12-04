@@ -10,7 +10,7 @@ jobs:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
     env:
-          CI: true
+        
           DB_HOST: ${{ vars.DB_HOST }}
           DB_DATABASE: ${{ vars.DB_DATABASE }}
           DB_USERNAME: ${{ vars.DB_USERNAME }}
