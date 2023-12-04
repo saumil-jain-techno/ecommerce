@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
         
-          DB_HOST: ${{ vars.DB_HOST }}
-          DB_DATABASE: ${{ vars.DB_DATABASE }}
-          DB_USERNAME: ${{ vars.DB_USERNAME }}
-          DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Print message
-        run: echo "This workflow run was triggered by ${{ vars.DB_DATABASE }}"
+        run: echo "This workflow run was triggered by ${{ secrets.DB_DATABASE }}"
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
         env:
