@@ -6,6 +6,7 @@
 /vendor
 /nbproject
 /storage/*
+.env
 .env.backup
 composer.lock
 .phpunit.result.cache
