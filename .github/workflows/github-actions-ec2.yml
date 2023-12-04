@@ -20,7 +20,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Print message
-        run: echo "This workflow run was triggered by ${{ secrets.DB_DATABASE }}"
+        run: echo "This workflow run was triggered by ${{ DB_HOST }}"
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
         env:
