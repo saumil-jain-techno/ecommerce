@@ -18,14 +18,6 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - name: Update .env
-        run: |
-          echo "DB_CONNECTION=mysql" >> .env
-          echo "DB_HOST=${DB_HOST}" >> .env
-          echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=${DB_DATABASE}" >> .env
-          echo "DB_USERNAME=${DB_USERNAME}" >> .env
-          echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
 
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
