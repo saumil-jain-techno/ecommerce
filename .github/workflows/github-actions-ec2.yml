@@ -10,7 +10,6 @@ jobs:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
     env:
-        
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -19,8 +18,7 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - name: Print message
-        run: echo "This workflow run was triggered by ${DB_HOST}"
+      
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
         env:
