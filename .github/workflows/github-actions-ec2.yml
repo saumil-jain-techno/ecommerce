@@ -18,7 +18,13 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-
+      - name: Set .env Variable
+        env: 
+          DB_HOST: ${{ env.DB_HOST }}
+          DB_DATABASE: ${{ env.DB_DATABASE }}
+          DB_USERNAME: ${{ env.DB_USERNAME }}
+          DB_PASSWORD: ${{ env.DB_PASSWORD }}
+          
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
         env:
