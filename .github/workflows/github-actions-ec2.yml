@@ -21,26 +21,22 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to Server 1
-        run: |
-          if [ "${{ github.ref }}" = "refs/heads/staging" ]; then
-            # Use a different deployment action or command for staging
-            # For example, use a hypothetical 'ssh-deploy-staging' action
-           uses: easingthemes/ssh-deploy@staging
-            env:
-            SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-            REMOTE_HOST: ${{ secrets.HOST_DNS }}
-            REMOTE_USER: ${{ secrets.USERNAME }}
-            TARGET: ${{ secrets.STAGING_TARGET_DIR }}
-          else
-            # Use the regular 'ssh-deploy' action for other branches
-            uses: easingthemes/ssh-deploy@main
-            env:
-              SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-              REMOTE_HOST: ${{ secrets.HOST_DNS }}
-              REMOTE_USER: ${{ secrets.USERNAME }}
-              TARGET: ${{ secrets.TARGET_DIR }}
-          fi
-        
+        if: startsWith(github.ref, 'refs/heads/staging')
+        uses: easingthemes/ssh-deploy@staging
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.STAGING_TARGET_DIR }}
+          
+      - name: Deploy to Server (for other branches)
+        if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
 
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
