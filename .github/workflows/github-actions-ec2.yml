@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy to Server 1
         if: startsWith(github.ref, 'refs/heads/staging')
-        uses: easingthemes/ssh-deploy@staging
+        uses: easingthemes/ssh-deploy
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
