@@ -20,7 +20,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
 
-      - name: Deploy to Server 1
+      - name: Deploy to Staging Server
         if: startsWith(github.ref, 'refs/heads/staging')
         uses: easingthemes/ssh-deploy@main
         env:
@@ -29,7 +29,7 @@ jobs:
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.STAGING_TARGET_DIR }}
           
-      - name: Deploy to Server (for other branches)
+      - name: Deploy to Production
         if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
         uses: easingthemes/ssh-deploy@main
         env:
