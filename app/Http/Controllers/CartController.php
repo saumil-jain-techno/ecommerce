@@ -70,7 +70,7 @@ class CartController extends Controller
             request()->session()->flash('error','Invalid Products');
             return back();
         }    
-        dd(auth()->user()->id);
+        
         $already_cart = Cart::where('user_id', auth()->user()->id)->where('order_id',null)->where('product_id', $product->id)->first();
 
         // return $already_cart;
