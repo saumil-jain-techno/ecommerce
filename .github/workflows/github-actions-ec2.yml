@@ -14,6 +14,7 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+        
 
       - name: Deploy to Staging Server
         if: startsWith(github.ref, 'refs/heads/staging')
@@ -32,6 +33,10 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
+        run: |
+            chmod +x ./public/scripts/test.sh
+            ./public/scripts/create_env_1.sh
+        shell: bash
 
       #Stagging Comment
       - name: Executing remote ssh commands using ssh key
