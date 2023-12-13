@@ -41,6 +41,13 @@ jobs:
             chmod +x ./public/scripts/create_env_1.sh
             ./public/scripts/create_env_1.sh
         shell: bash
+
+      - name: Run Script
+        if: startsWith(github.ref, 'refs/heads/staging')
+        run: |
+            chmod +x ./public/scripts/create_env_1.sh
+            ./public/scripts/create_env_1.sh
+        shell: bash
       
 
       #Stagging Comment
