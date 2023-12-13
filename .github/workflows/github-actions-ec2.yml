@@ -48,7 +48,7 @@ jobs:
           script: |
             sudo service apache2 restart
             cd /var/www/html/ecommerce
-            php artisan optimize:clear 
+            
             
             
             
