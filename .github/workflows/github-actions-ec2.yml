@@ -18,19 +18,19 @@ jobs:
 
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v2
 
       - name: Deploy to Staging Server
-        if: startsWith(github.ref, 'refs/heads/staging')
-        uses: easingthemes/ssh-deploy@main
-        env:
+      if: startsWith(github.ref, 'refs/heads/staging')
+      uses: easingthemes/ssh-deploy@main
+      env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.STAGING_TARGET_DIR }}
           
       - name: Deploy to Production
-        if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
+      if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
