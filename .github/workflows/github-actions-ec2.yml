@@ -10,27 +10,22 @@ jobs:
   deploy:
     name: Deploy to EC2 on main branch push
     runs-on: ubuntu-latest
-    env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
+    
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
 
       - name: Deploy to Staging Server
-      if: startsWith(github.ref, 'refs/heads/staging')
-      uses: easingthemes/ssh-deploy@main
-      env:
+        if: startsWith(github.ref, 'refs/heads/staging')
+        uses: easingthemes/ssh-deploy@main
+        env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.STAGING_TARGET_DIR }}
           
       - name: Deploy to Production
-      if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
+        if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
