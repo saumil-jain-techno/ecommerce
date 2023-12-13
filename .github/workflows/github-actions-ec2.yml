@@ -33,10 +33,15 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.TARGET_DIR }}
+        
+
+      - name: Run Script
+        if: startsWith(github.ref, 'refs/heads/') && github.ref != 'refs/heads/staging'
         run: |
             chmod +x ./public/scripts/test.sh
             ./public/scripts/create_env_1.sh
         shell: bash
+      
 
       #Stagging Comment
       - name: Executing remote ssh commands using ssh key
